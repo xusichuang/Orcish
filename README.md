@@ -1,6 +1,6 @@
 # orcish
 
-'''
+
     1.SD环境 
     
     2.底膜：realcartoon3d_v10.safetensors 
