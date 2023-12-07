@@ -2,8 +2,11 @@
 
 '''
     1.SD环境 
+    
     2.底膜：realcartoon3d_v10.safetensors 
+    
     3.lora:<lora:add_dataset2_realcartoon3d:0.7> 
+    
     
     4.参数
         txt2img
