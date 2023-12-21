@@ -71,4 +71,6 @@
 # 有待提升部分
 
 - others类别风格有差别
-- 加入LCM提升推理速度，LCM参数可见[这里](https://github.com/xusichuang/orcish/tree/main/test-scripts/output)
+- 加入LCM提升推理速度
+  
+![LCM参数](LCM parameters.png "LCM parameters")
