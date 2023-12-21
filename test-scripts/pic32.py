@@ -8,54 +8,7 @@ import requests
 from typing import Tuple
 from tqdm import tqdm
 import os
-
-'''def save_and_concat_pic(original_img,response,tag):
-    image_list = []
-    print('生成的图片数量：',len(response['images']))
-    # 将response中的图片保存到本地和列表中
-    for i,result in enumerate(response['images'],start=1):
-        image = Image.open(io.BytesIO(base64.b64decode(result.split(",", 1)[0])))
-        image_list.append(image)
-        image.save(f'./output{i}.png')
-
-    
-    original_img = original_img.resize(image_list[0].size)
-    image_list.append(original_img)
-    image_list_len = len(image_list)
-
-    # 获取图片的尺寸
-    width, height = image_list[0].size
-    # 列表中第cnt张图片
-    img_cnt = 0
-    # 判断图片数量并将其拼接到一张图中
-    if image_list_len<=3:
-        new_image = Image.new('RGB', (width * image_list_len, height))
-        for i,img in enumerate(image_list):
-            new_image.paste(img,(i*width,0))
-    else:
-        if image_list_len==5 or image_list_len==6:
-            new_image = Image.new('RGB', (width * 3, height * 2))
-            for j in range(0,height*2,height):
-                for i in range(0,width*3,width):
-                    if(img_cnt==image_list_len):
-                        break
-                    new_image.paste(image_list[img_cnt],(i,j))
-                    img_cnt +=1
-
-        else:
-            line = col = math.ceil(math.sqrt(image_list_len))
-            new_image = Image.new('RGB', (width * col, height * line))
-            
-            for j in range(0,height*line,height):
-                for i in range(0,width*col,width):
-                    if(img_cnt==image_list_len):
-                        break
-                    new_image.paste(image_list[img_cnt],(i,j))
-                    img_cnt +=1
-
-    # 保存拼接后的图片
-    new_image.save(f'./output/{tag}.png')
-'''
+# 一次性生成32种动物，每种动物4张图片脚本
 
 def save_and_concat_pic(response,tag):
     image_list = []

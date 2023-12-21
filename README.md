@@ -1,14 +1,30 @@
 # orcish
 
+# 背景：圣诞活动，用户上传一张自己的宠物图片，生成对应的兽人形象
 
-    1.SD环境 
+## 效果展示
+<div style="display: flex; justify-content: space-between;">
+    <img src="test-scripts\output1.png" alt="Image 1" style="width: 48%;">
+    <img src="test-scripts\output2.png" alt="Image 2" style="width: 48%;">
+</div>
+<div style="display: flex; justify-content: space-between;">
+    <img src="test-scripts\output3.png" alt="Image 1" style="width: 48%;">
+    <img src="test-scripts\output4.png" alt="Image 2" style="width: 48%;">
+</div>
+
+### 最终效果可见[这里](https://github.com/xusichuang/orcish/tree/main/test-scripts/output)
+
+# 流程图
+
+![流程图](pipeline_pic.png "Pipeline picture")
+
+## 细节  
+    1.底膜：realcartoon3d_v10.safetensors 
     
-    2.底膜：realcartoon3d_v10.safetensors 
-    
-    3.lora:<lora:add_dataset2_realcartoon3d:0.7> 
+    2.lora:<lora:add_dataset2_realcartoon3d:0.7> 
     
     
-    4.参数
+    3.参数
         txt2img
             sampler:"DPM++ 2M Karras"
             step:20
@@ -21,7 +37,7 @@
             resize_mode: 0,
             denoising_strength: 0.6,
     
-    5.prompt
+    4.prompt
         positive_prompt
             tag + <lora:add_dataset2_realcartoon3d:0.7> + An enchanting image featuring an adorable kitten mage wearing intricate ancient robes, \
              |                                              holding an ancient staff, hard at work in her fantastical workshop, intricate runic symbols swirling around her, \
@@ -34,7 +50,7 @@
             '(nsfw:1.3),(Nude:1.3),(Naked:1.3),extra fingers,fewer fingers, (bad-hands-5:1.4),deformed,text, bad hand, extra hands, extra fingers, too many fingers, fused fingers,\
             worst reslution,low quality,(normal quality:2),lowres,signature,watermark,paintings, sketches,skin spots, skin blemishes, age spot,'
 
-    6.标签映射
+    5.标签映射
         tag格式: (a qwert animals:1.1)
         
         (1)狗、鼠不做标签映射直接用
@@ -44,7 +60,7 @@
             
 
             
-    7.pipeline
+    6.pipeline
         图片--->分类器--->label--->标签映射--->tag--->4大类动物使用txt2img、others使用img2img
 
         
@@ -52,24 +68,7 @@
 
         img2img使用CLIP反推作为positive_prompt，negative_prompt使用5.
         
-        class Interrogate_CLIP_Request():
-            def __init__(self,
-                        ip,
-                        encoded_image):
-                self.url = "http://127.0.0.1:%s/sdapi/v1/interrogate"%ip
-                self.body = {
-                    "image": encoded_image,
-                    "model": "clip"
-                }
-            
-            def sendRequest(self):
-                # assert requests.post(self.url,json=self.body).status_code==200
-                response =  requests.post(self.url,json=self.body)
-                # print(response)
-                return response
+# 有待提升部分
 
-                
-        clip_response = Interrogate_CLIP_Request(port,encoded_image=encoded_image.decode()).sendRequest()
-        # 将clip_response中的内容（字符串格式），转换成json
-        prompt_json = json.loads(clip_response.text)
-        positive_prompt = ' <lora:Detached1-10_realcartoon3d_Model:0.7>' + prompt_json['caption']
+- others类别风格有差别
+- 加入LCM提升推理速度，LCM参数可见[这里](https://github.com/xusichuang/orcish/tree/main/test-scripts/output)
