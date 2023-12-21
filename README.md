@@ -71,6 +71,4 @@
 # 有待提升部分
 
 - others类别风格有差别
-- 加入LCM提升推理速度
-  
-![LCM参数](LCM parameters.png "LCM parameters")
+- 加入LCM提升推理速度,参数可见LCM parameters.png
